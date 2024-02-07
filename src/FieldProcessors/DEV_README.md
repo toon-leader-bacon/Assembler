@@ -17,7 +17,7 @@ Address (Adr) = `Field{value=4, size=5}`
 
 Indirection Bit (I) = `Field{value=1, size=1}`
 
-However these fields get assembled down into a binary number that looks like this:
+However, these fields get assembled down into a binary number that looks like this:
 
 `RRXXIAAAAA`
 
