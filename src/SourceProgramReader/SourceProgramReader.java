@@ -53,7 +53,7 @@ public class SourceProgramReader {
                 nextMemoryLocation++;
 
                 // If the op code is LOC then set the memory location to that
-                if(spLine.instruction.operationCode.name.equalsIgnoreCase("loc")) {
+                if (spLine.instruction.operationCode.name.equalsIgnoreCase("loc")) {
                     nextMemoryLocation = spLine.instruction.fields.getFirst().value;
                 }
 
@@ -79,20 +79,27 @@ public class SourceProgramReader {
     SourceProgramLine buildSourceProgramLine(String line) {
         ArrayList<String> tokens = tokenizeLineOnWhitespace(line);
 
-        // Extract the memory location (if provided)
-        // NOTE: The first token may be the empty string
-        BinaryNumber memLocBinary = null;
-        if (Utility.isNumeric(tokens.getFirst())) {
-            memLocBinary = new BinaryNumber(Integer.parseInt(tokens.getFirst()));
-        }
+        // There are a few options for what the expected first token should be:
+        // Empty String: IE the line starts with white space
+        // Numeric: IE the line starts with a memory location
+        // Word: IE the line starts with an OpCode name
 
-        // Extract the OpCode
-        String operationCodeName = getOperationCodeName(tokens);
-        String fields = (operationCodeName.equalsIgnoreCase("hlt")) ? "" : getFields(tokens);
+        // The first token is a memory location iff it's numeric
+        // Else, the first token is not numeric => it's an op code
+        boolean firstTokenMemLocation = Utility.isNumeric(getNthNonEmpty(tokens, 1));
+
+        BinaryNumber memLocBinary = (firstTokenMemLocation) ?
+                (new BinaryNumber(Integer.parseInt(getNthNonEmpty(tokens, 1)))) :
+                (null);
+
+        int offset = firstTokenMemLocation ? 1 : 0;
+        String opCode = getNthNonEmpty(tokens, 1 + offset);
+        String fields = (opCode.equalsIgnoreCase("hlt")) ? "" : getNthNonEmpty(tokens, 2 + offset);
+
         // Build the instruction structure
         Instruction instruction = new Instruction(
-                new OpCode(operationCodeName),
-                processFields(operationCodeName, fields)
+                new OpCode(opCode),
+                processFields(opCode, fields)
         );
 
         // Everything else can be ignored

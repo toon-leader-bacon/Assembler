@@ -32,28 +32,10 @@ class SourceProgramReaderTest {
         assertEquals(expected, underTest.tokenizeLineOnWhitespace(inputStr));
     }
 
-    /*
-    @org.junit.jupiter.api.Test
-    void tokenizeLineTest() {
-        SourceProgramReader underTest = new SourceProgramReader();
-
-        String inputStr = "6\tData\t10\t\t\t;PUT 10 AT LOCATION 6\n";
-        ArrayList<String> expected = new ArrayList<>() {
-            {
-                add("6");
-                add("Data");
-                add("10");
-                add(";PUT 10 AT LOCATION 6");
-            }
-        };
-        assertEquals(expected, underTest.tokenizeLine(inputStr));
-    }
-    */
-
     @org.junit.jupiter.api.Test
     void runExampleInputFile() {
         SourceProgramReader underTest = new SourceProgramReader();
-        underTest.OpenAndReadSourceProgramFile("Assembler/test/SourceProgramReader/SourceProgram.txt",
+        underTest.OpenAndReadSourceProgramFile("test/SourceProgramReader/SourceProgram.txt",
                 true);
 
         // 21 JZ 1,0
@@ -65,14 +47,14 @@ class SourceProgramReaderTest {
     @org.junit.jupiter.api.Test
     void allCommandsInputFile() {
         SourceProgramReader underTest = new SourceProgramReader();
-        underTest.OpenAndReadSourceProgramFile("Assembler/test/SourceProgramReader/AllCommands.txt",
+        underTest.OpenAndReadSourceProgramFile("test/SourceProgramReader/AllCommands.txt",
                 true);
     }
 
     @org.junit.jupiter.api.Test
     void evenMoreCommandsInputFile() {
         SourceProgramReader underTest = new SourceProgramReader();
-        underTest.OpenAndReadSourceProgramFile("Assembler/test/SourceProgramReader/EvenMoreCommands.txt",
+        underTest.OpenAndReadSourceProgramFile("test/SourceProgramReader/EvenMoreCommands.txt",
                 true);
     }
 
@@ -119,14 +101,6 @@ class SourceProgramReaderTest {
             }
         };
         assertEquals(expected, underTest.processFields("LDR", "3,0,10,1"));
-        /*
-        expected = new ArrayList<>() {
-            {
-                add(new Field(1024, 10));
-            }
-        };
-        assertEquals(expected, underTest.processFields("DATA", "END"));
-        */
 
     }
 
