@@ -1,0 +1,47 @@
+	LOC	6
+	Data	10
+	hlt
+	trap    5
+
+	ldr 2,2,2,1
+	str 2,2,2,1
+	lda 2,2,2,1
+	ldx 2,2,1
+	stx 2,2,1
+	LOC	6
+	setcce 2
+	jz 2,2,1
+	jne 2,2,2,1
+	jcc 2,2,2,1
+	jma 2,2,1
+	jsr 2,2,1
+	rfs 2
+	sob 2,2,2,1
+	jge 2,2,2,1
+
+	amr 2,2,2,1
+	smr 2,2,2,1
+	air 2,2
+	sir 2,2
+
+	mlt 2,2
+	dvd 2,2
+	trr 2,2
+	and 2,2
+	orr 2,2
+	not 2
+
+	src 2,2,1,1
+	rrc 2,2,1,1
+
+	in 2,2
+	out 2,2
+	chk 2,2
+
+	fadd 2,2,2,1
+	fsub 2,2,2,1
+	vadd 2,2,2,1
+	vsub 2,2,2,1
+	cnvrt 2,2,2,1
+	ldfr 2,2,2,1
+	stfr 2,2,2,1
