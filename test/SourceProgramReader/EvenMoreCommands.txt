@@ -1,7 +1,7 @@
-	LOC	6
-	Data	10
-	hlt
-	trap    5
+ LOC	6
+6 Data	10
+hlt
+trap    5
 
 	ldr 2,2,2,1
 	ldr 2,2,2

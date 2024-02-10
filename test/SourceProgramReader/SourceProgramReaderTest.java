@@ -32,24 +32,6 @@ class SourceProgramReaderTest {
         assertEquals(expected, underTest.tokenizeLineOnWhitespace(inputStr));
     }
 
-    /*
-    @org.junit.jupiter.api.Test
-    void tokenizeLineTest() {
-        SourceProgramReader underTest = new SourceProgramReader();
-
-        String inputStr = "6\tData\t10\t\t\t;PUT 10 AT LOCATION 6\n";
-        ArrayList<String> expected = new ArrayList<>() {
-            {
-                add("6");
-                add("Data");
-                add("10");
-                add(";PUT 10 AT LOCATION 6");
-            }
-        };
-        assertEquals(expected, underTest.tokenizeLine(inputStr));
-    }
-    */
-
     @org.junit.jupiter.api.Test
     void runExampleInputFile() {
         SourceProgramReader underTest = new SourceProgramReader();
@@ -119,14 +101,6 @@ class SourceProgramReaderTest {
             }
         };
         assertEquals(expected, underTest.processFields("LDR", "3,0,10,1"));
-        /*
-        expected = new ArrayList<>() {
-            {
-                add(new Field(1024, 10));
-            }
-        };
-        assertEquals(expected, underTest.processFields("DATA", "END"));
-        */
 
     }
 
