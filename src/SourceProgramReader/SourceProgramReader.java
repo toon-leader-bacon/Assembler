@@ -4,12 +4,9 @@ import DataStructures.*;
 import FieldProcessors.AbstractFieldProcessor;
 import FieldProcessors.FieldProcessorFactory;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
 
 
 public class SourceProgramReader {
@@ -21,6 +18,12 @@ public class SourceProgramReader {
     }
 
     public void OpenAndReadSourceProgramFile(String fileToRead, boolean repeatSourceProgramLine) {
+        // Parse the source program line by line
+        // Split each line on tab characters
+        // First token = memory location (or empty)
+        // Second token = opCode+Fields
+        // extra tokens are all comments/ un-needed
+
         BufferedReader reader;
         BufferedWriter writer;
 
@@ -32,6 +35,7 @@ public class SourceProgramReader {
             String line = reader.readLine();
             int nextMemoryLocation = 0;
 
+            // Loop over each line in the file
             while (line != null) {
                 if (line.isEmpty()) {
                     line = reader.readLine();
@@ -40,13 +44,20 @@ public class SourceProgramReader {
 
                 SourceProgramLine spLine = buildSourceProgramLine(line);
 
+                // Figure out the memory location part
                 if (spLine.memoryLocation == null) {
+                    // LOC instructions will have a null memory location
+                    // Simply use the "next memory location" as this line's location
                     spLine.memoryLocation = new BinaryNumber(nextMemoryLocation);
                 } else {
+                    // Otherwise, this instruction has a memory location provided.
+                    // Use it, and remember it
                     nextMemoryLocation = spLine.memoryLocation.toIntBase10();
                 }
+                // No matter what, increment the next memory location pointer
                 nextMemoryLocation++;
 
+                // If the op code is LOC then set the memory location to that
                 if (spLine.instruction.operationCode.name.equalsIgnoreCase("loc")) {
                     nextMemoryLocation = spLine.instruction.fields.getFirst().value;
                 }
@@ -60,6 +71,7 @@ public class SourceProgramReader {
 
                 writer.write(assemble);
 
+                // grab next line from file
                 line = reader.readLine();
             }
 
@@ -79,8 +91,6 @@ public class SourceProgramReader {
         }
         outputFile.createNewFile();
     }
-
-
 
 
     SourceProgramLine buildSourceProgramLine(String line) {
