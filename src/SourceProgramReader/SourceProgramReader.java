@@ -9,51 +9,45 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
+
 
 public class SourceProgramReader {
 
     public static final String END_MEMORY_LOCATION_STR = "1024";
+    private static final String OUTPUT_FILE_NAME = "output.txt";
 
     public SourceProgramReader() {
     }
 
     public void OpenAndReadSourceProgramFile(String fileToRead, boolean repeatSourceProgramLine) {
-        // Parse the source program line by line
-        // Split each line on tab characters
-        // First token = memory location (or empty)
-        // Second token = opCode+Fields
-        // extra tokens are all comments/ un-needed
-
         BufferedReader reader;
-        try {
-            reader = new BufferedReader(new FileReader(fileToRead));
-            String line = reader.readLine();
+        BufferedWriter writer;
 
+        try {
+            setupOutputFile(OUTPUT_FILE_NAME);
+            reader = new BufferedReader(new FileReader(fileToRead));
+            writer = new BufferedWriter(new FileWriter(OUTPUT_FILE_NAME, true)); // Append mode
+
+            String line = reader.readLine();
             int nextMemoryLocation = 0;
-            // Loop over each line in the file
+
             while (line != null) {
                 if (line.isEmpty()) {
                     line = reader.readLine();
                     continue;
                 }
-                //System.out.println("Processing line: " + line);
+
                 SourceProgramLine spLine = buildSourceProgramLine(line);
 
-                // Figure out the memory location part
                 if (spLine.memoryLocation == null) {
-                    // LOC instructions will have a null memory location
-                    // Simply use the "next memory location" as this line's location
                     spLine.memoryLocation = new BinaryNumber(nextMemoryLocation);
                 } else {
-                    // Otherwise, this instruction has a memory location provided.
-                    // Use it, and remember it
                     nextMemoryLocation = spLine.memoryLocation.toIntBase10();
                 }
-                // No matter what, increment the next memory location pointer
                 nextMemoryLocation++;
 
-                // If the op code is LOC then set the memory location to that
-                if(spLine.instruction.operationCode.name.equalsIgnoreCase("loc")) {
+                if (spLine.instruction.operationCode.name.equalsIgnoreCase("loc")) {
                     nextMemoryLocation = spLine.instruction.fields.getFirst().value;
                 }
 
@@ -63,17 +57,30 @@ public class SourceProgramReader {
                 }
                 assemble = assemble.replace("\n", "");
                 assemble += "\n";
-                System.out.print(assemble);
 
-                // grab next line from file
+                writer.write(assemble);
+
                 line = reader.readLine();
             }
 
             reader.close();
+            writer.close();
+
         } catch (IOException e) {
             System.out.println("Encountered an error when reading the file: " + e);
         }
     }
+
+
+    private void setupOutputFile(String fileName) throws IOException {
+        File outputFile = new File(fileName);
+        if (outputFile.exists()) {
+            outputFile.delete();
+        }
+        outputFile.createNewFile();
+    }
+
+
 
 
     SourceProgramLine buildSourceProgramLine(String line) {
