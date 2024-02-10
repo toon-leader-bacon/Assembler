@@ -66,8 +66,8 @@ like `.assemble()` to be added.
 
 The Source Program Reader has a few options available that determine what the assembled output should include, or how it
 should look.
-For example, there is an option called `repeatSourceProgramLine` that determines weather or not the input in it's
-entirety should be re-printed into the output.
+For example, there is an option called `repeatSourceProgramLine` that determines whether or not the input, in it's
+entirety, should be re-printed in the output.
 This is useful for debugging the assembler.
 
 Example:
@@ -81,20 +81,22 @@ Output(!RepeatSourceProgramLine):000021	002652
 
 #### Source Program Input File
 
-The Source Program Input File MUST be formatted properly. Each token must be seperated by a whitespace character ` ` (
-space) or `\t` tab.
+The Source Program Input File MUST be formatted properly. Each line is seperated by '\n' (newline) character, and further 
+tokenized. Each token must be seperated by a whitespace character ` ` (space) or `\t` (tab).
 
-***Important***: Even if the token is optional, the determiner is not optional.
+***Note***: Each instruction line begins with a memory location, whitespace character, or operation. The delimiter and 
+memory location are optional.
 
 Consider the first two source program file lines from the project example:
 
 ```
-	LOC	6			    ;BEGIN AT LOCATION 6
-6	Data	10			;PUT 10 AT LOCATION 6
+	LOC	6			;BEGIN AT LOCATION 6
+Data	10				;PUT 10 AT LOCATION 6
+7	Data	10			;PUT 10 AT LOCATION 7
 ```
 
 Notice that the first line (including `LOC`) starts with a `\t` tab character, while the next line starts with a memory
-location. The memory location is optional, but the white space delimiter is not.
+location. 
 
 #### Memory Location
 
