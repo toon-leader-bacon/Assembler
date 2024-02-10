@@ -1,5 +1,5 @@
-LOC	6
-Data	10
+ LOC	6
+6 Data	10
 hlt
 trap    5
 
