@@ -25,3 +25,15 @@ Notice that the Indirection Bit is provided at the end of the source program val
 between the XI and Address sections.
 The Field Processor classes are responsible for extracting out the fields from the Source Program line, and placing them
 in the correct assembler order.
+
+## Custom Commands
+
+G2X RR, IX
+General Purpose Register to Index Register.
+Take the data in the targeted GPR and copy it into the targeted IX.
+If the IX register is 0, then this is effectively a no-op
+
+X2G RR, IX
+Index Register to General Purpose Register
+Take the data in the targeted IX register and copy it into the targeted GPR.
+If the IX register is 0, then the value loaded into the GPR will be 0.

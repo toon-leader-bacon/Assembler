@@ -35,8 +35,7 @@ class SourceProgramReaderTest {
     @org.junit.jupiter.api.Test
     void runExampleInputFile() {
         SourceProgramReader underTest = new SourceProgramReader();
-        underTest.OpenAndReadSourceProgramFile("test/SourceProgramReader/SourceProgram.txt",
-                true);
+        underTest.OpenAndReadSourceProgramFile("test/SourceProgramReader/SourceProgram.txt", true);
 
         // 21 JZ 1,0
         //013100 -> 000101 10 01 0 00000
@@ -47,15 +46,19 @@ class SourceProgramReaderTest {
     @org.junit.jupiter.api.Test
     void allCommandsInputFile() {
         SourceProgramReader underTest = new SourceProgramReader();
-        underTest.OpenAndReadSourceProgramFile("test/SourceProgramReader/AllCommands.txt",
-                true);
+        underTest.OpenAndReadSourceProgramFile("test/SourceProgramReader/AllCommands.txt", true);
     }
 
     @org.junit.jupiter.api.Test
     void evenMoreCommandsInputFile() {
         SourceProgramReader underTest = new SourceProgramReader();
-        underTest.OpenAndReadSourceProgramFile("test/SourceProgramReader/EvenMoreCommands.txt",
-                true);
+        underTest.OpenAndReadSourceProgramFile("test/SourceProgramReader/EvenMoreCommands.txt", true);
+    }
+
+    @org.junit.jupiter.api.Test
+    void Program1_AssemblyFile() {
+        SourceProgramReader underTest = new SourceProgramReader();
+        underTest.OpenAndReadSourceProgramFile("test/SourceProgramReader/Program1_Assembly.txt", true);
     }
 
 

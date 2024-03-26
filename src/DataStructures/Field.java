@@ -49,6 +49,9 @@ public class Field {
 
         // Initialize the result with the minimal binary representation
         result.append(Integer.toBinaryString(this.value));
+        if(result.length() > this.size) {
+            // throw new IllegalArgumentException("Binary number was too big! Decimal value: " + this.value + " vs binary value: " + result.toString());
+        }
 
         // Add 0s to the front of the result to reach the expected size
         while (result.length() < this.size) {

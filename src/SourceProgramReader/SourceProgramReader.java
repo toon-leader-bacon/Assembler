@@ -237,7 +237,7 @@ public class SourceProgramReader {
             }
             nonEmptySeen++;
         }
-        throw new IllegalArgumentException("Line does not have enough expected tokens");
+        throw new IllegalArgumentException("Line does not have enough expected tokens. Seen this many tokens: " + nonEmptySeen + " Expected at least n: " + n);
     }
 
 }

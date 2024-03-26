@@ -154,6 +154,13 @@ public class OpCode extends Field {
             case "stfr" -> {
                 return 35; // 43 octal
             }
+            /* custom commands */
+            case "r2x" -> {
+                return 38; // 46 octal
+            }
+            case "x2r" -> {
+                return 39; // 47 octal
+            }
             default -> throw new IllegalArgumentException("Unknown Operation Code: " + opCode);
         }
     }

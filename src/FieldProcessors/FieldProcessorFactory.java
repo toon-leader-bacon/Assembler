@@ -9,7 +9,7 @@ public class FieldProcessorFactory {
             case "data" -> {
                 yield new DataFieldProcessor();
             }
-            case  "end" -> {
+            case "end" -> {
                 yield new LocFieldProcessor();
             }
             case "loc" -> {
@@ -74,8 +74,9 @@ public class FieldProcessorFactory {
                     "dvd", // 23oct: divide register by register
                     "trr", // test the equality of register and register
                     "and", // Logical and of register and register
-                    "orr" // logical or of register and register
-                    -> {
+                    "orr", // logical or of register and register
+                    "r2x",
+                    "x2r" -> {
                 yield new RegisterToRegisterFieldProcessor();
             }
             case "not" // logical not of register
